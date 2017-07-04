@@ -8,8 +8,8 @@ To study the collaoration patterns in GitHub, 17 programming languages were sele
 C, C#, C++, Clojure, Go, Haskell, Java, Javascript, Julia, OCaml,
 PHP, Python, R, Ruby, Rust, Scala, Scheme. 
 
-
-
+--------------------------------------------------------------------------------------------------
+1 - 17 languages, all events
 -------------------------------------------------------------------------------------------------------
 SELECT T2.language.name as Language, Count (distinct T1.repo.name) as repo_num, count (distinct T3.author.name) as Developer, count (distinct T3.commit) as Commits
 FROM (SELECT * FROM [githubarchive:month.201706] 
@@ -41,7 +41,7 @@ GROUP BY 1
 Order by 2 desc
 Limit 20
 -----------------------------------------------------------------------------
-Take into 7 different events into account:
+2 - 17 languages, 7 events
 -------------------------------------------------------------------------------
 
 SELECT T2.language.name as Language, Count (distinct T1.repo.url) as repo_num, count (distinct T3.author.name) as Developer, count (distinct T3.commit) as Commits
@@ -83,7 +83,7 @@ Limit 20
 
 
 --------------------------------------------------------------
-all languages with 7 events:
+3 - all languages, 7 events
 -------------------------------------------------------------------
 
 SELECT T2.language.name as Language, Count (distinct T1.repo.name) as repo_num, count (distinct T3.author.name) as Developer, count (distinct T3.commit) as Commits
@@ -105,3 +105,17 @@ WHERE T2.language.name is not null
 GROUP BY 1 
 Order by 2 desc
 
+------------------------------------------------------------------
+4 - all languages, all events
+-----------------------------------------------------------------
+SELECT T2.language.name as Language, Count (distinct T1.repo.name) as repo_num, count (distinct T3.author.name) as Developer, count (distinct T3.commit) as Commits
+FROM (SELECT * FROM [githubarchive:month.201706] 
+      WHERE created_at>='2017-06-11 00:00' 
+      and created_at<='2017-06-25 00:00') T1
+join [[bigquery-public-data:github_repos.commits] T3
+ON T3.committer.date = T1.created_at
+JOIN [bigquery-public-data:github_repos.languages]  T2
+ON T2.repo_name = T1.repo.name
+WHERE T2.language.name is not null
+GROUP BY 1 
+Order by 2 desc
