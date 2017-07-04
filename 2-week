@@ -1,0 +1,40 @@
+T1 - [githubarchive:year.2016]
+T2 - [github_repos.languages]
+T3 - [github_repos.commits]
+
+To study the collaoration patterns in GitHub, 17 programming languages were selected: 
+C, C#, C++, Clojure, Go, Haskell, Java, Javascript, Julia, OCaml,
+PHP, Python, R, Ruby, Rust, Scala, Scheme. 
+
+Time length is 2 weeks from 2017-06-11 to 2017-06-25
+
+
+-------------------------------------------------------------------------------------------------------
+SELECT T2.language.name as Language, Count (distinct T1.repo.url) as repo_num, count (distinct T3.author.name) as Developer, count (distinct T3.commit) as Commits
+FROM (SELECT * FROM [githubarchive:month.201706] WHERE created_at>='2017-06-11 00:00' and created_at<='2017-06-25 00:00') T1 join [[bigquery-public-data:github_repos.commits] T3
+ON T3.committer.date = T1.created_at
+JOIN (SELECT * FROM [bigquery-public-data:github_repos.languages] WHERE language.name ='C' 
+  or language.name = 'C#'
+  or language.name = 'C++'
+  or language.name = 'Clojure'
+  or language.name = 'Go'
+  or language.name = 'Haskell'
+  or language.name = 'Java'
+  or language.name = 'Javascript'
+  or language.name = 'Julia'
+  or language.name = 'OCaml'
+  or language.name = 'PHP'
+  or language.name = 'Python'
+  or language.name = 'R'
+  or language.name = 'Ruby'
+  or language.name = 'Rust'
+  or language.name = 'Scala'
+  or language.name = 'Scheme') T2
+ON T2.repo_name = T1.repo.name
+GROUP BY 1 
+Order by 1,4 desc
+Limit 20
+
+-----------------------------------------------------------------------------
+
+
