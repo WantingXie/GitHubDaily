@@ -1,12 +1,14 @@
-T1 - [githubarchive:year.2016]
+T1 - [githubarchive:month.201706]
 T2 - [github_repos.languages]
 T3 - [github_repos.commits]
+
+Time length is 2 weeks from 2017-06-11 to 2017-06-25
 
 To study the collaoration patterns in GitHub, 17 programming languages were selected: 
 C, C#, C++, Clojure, Go, Haskell, Java, Javascript, Julia, OCaml,
 PHP, Python, R, Ruby, Rust, Scala, Scheme. 
 
-Time length is 2 weeks from 2017-06-11 to 2017-06-25
+
 
 -------------------------------------------------------------------------------------------------------
 SELECT T2.language.name as Language, Count (distinct T1.repo.name) as repo_num, count (distinct T3.author.name) as Developer, count (distinct T3.commit) as Commits
