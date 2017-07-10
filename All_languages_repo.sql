@@ -1,6 +1,6 @@
-All the csv files are uploaded on Google BigQuery.
-I selected a one month period from 2016-08-01 to 2016-09-01
-
+--All the csv files are uploaded on Google BigQuery.
+--I selected a one month period from 2016-08-01 to 2016-09-01
+--Result is saved as csv file named 'all_languages_1_month.csv'
 
 
 
